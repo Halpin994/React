@@ -9,9 +9,9 @@ class Results extends Component {
 
   showResult = () => {
     var txtInput = document.getElementById('txtSearchMovie').value;
+    if(this.validateForm()){
     axios.get(apiUrl + txtInput + apiKey)
       .then(function (response) {
-        //alert(response.data.Title);
         document.getElementById('Title').innerHTML = response.data.Title;
         document.getElementById('Genre').innerHTML = response.data.Genre;
         document.getElementById('Year').innerHTML = response.data.Released;
@@ -28,15 +28,22 @@ class Results extends Component {
       .catch(function (error) {
         console.log(error);
       });
+    }
 
+  }
 
+  validateForm() {
+    var x = document.getElementById('txtSearchMovie').value;
+    if (x == "") {
+        alert("Fill in a damn movie title");
+        return false;
+    }
+    return true;
   }
 
   render() {
     return (
       <div className="Table">
-
-
       <br/>
         <table align="center">
         <input type="text" id="txtSearchMovie"/>
